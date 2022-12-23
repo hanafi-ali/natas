@@ -21,8 +21,8 @@ def get_secret():
         if search in text:
             start_index = text.find(search) + len(search) + 1
             return text[start_index: start_index + password_length]
-        else:
-            return ""
+
+    return ""
 
 
 secret = get_secret()
