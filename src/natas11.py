@@ -1,6 +1,6 @@
 import base64
 import json
-import urllib.parse
+from urllib import parse
 
 from config import password_length, natas11_default_color
 from utils import get_level_url, get_request_object, store_secret_and_print_message
@@ -30,7 +30,7 @@ def get_secret():
 
     if result.status_code == 200:
         code = result.cookies.get("data")
-        code = str(base64.b64decode(urllib.parse.unquote(code)), "utf-8")
+        code = str(base64.b64decode(parse.unquote(code)), "utf-8")
         data = json.dumps({"showpassword": "no", "bgcolor": natas11_default_color}).replace(" ", "")
 
         encrypted_data = find_key_and_encrypt_data(code, data)
