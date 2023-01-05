@@ -11,7 +11,8 @@ level_number = 8
 
 def get_secret():
     req = get_request_object(level_number)
-    result = req.get(get_level_url(level_number) + "/index-source.html")
+    url = get_level_url(level_number)
+    result = req.get(url + "/index-source.html")
     pattern = "<[^<]+?>"
     text = re.sub(pattern, "", html.unescape(result.text))
     search = "$encodedSecret"
@@ -20,7 +21,7 @@ def get_secret():
         start_index = text.find(search) + len(search) + 4
         code = text[start_index: start_index + natas8_code_length]
         code = str(base64.b64decode(str(binascii.unhexlify(code), "utf-8")[::-1]), "utf-8")
-        result = req.post(get_level_url(level_number), data={"secret": code, "submit": "1"})
+        result = req.post(url, data={"secret": code, "submit": "1"})
         text = result.text
         search = "The password for natas9 is"
 

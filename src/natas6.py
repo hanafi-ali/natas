@@ -6,7 +6,8 @@ level_number = 6
 
 def get_secret():
     req = get_request_object(level_number)
-    result = req.get(get_level_url(level_number) + "/includes/secret.inc")
+    url = get_level_url(level_number)
+    result = req.get(url + "/includes/secret.inc")
     text = result.text
     search = "$secret = "
 
@@ -14,7 +15,7 @@ def get_secret():
         start_index = text.find(search) + len(search) + 1
         end_index = text.rfind("\"")
         code = text[start_index: end_index]
-        result = req.post(get_level_url(level_number), data={"secret": code, "submit": "1"})
+        result = req.post(url, data={"secret": code, "submit": "1"})
         text = result.text
         search = "The password for natas7 is"
 

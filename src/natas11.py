@@ -26,7 +26,8 @@ def find_key_and_encrypt_data(code: str, data: str) -> str:
 
 def get_secret():
     req = get_request_object(level_number)
-    result = req.get(get_level_url(level_number))
+    url = get_level_url(level_number)
+    result = req.get(url)
 
     if result.status_code == 200:
         code = result.cookies.get("data")
@@ -36,7 +37,7 @@ def get_secret():
         encrypted_data = find_key_and_encrypt_data(code, data)
 
         req = get_request_object(level_number)
-        result = req.get(get_level_url(level_number), cookies={"data": encrypted_data})
+        result = req.get(url, cookies={"data": encrypted_data})
         text = result.text
         search = "The password for natas12 is"
 
